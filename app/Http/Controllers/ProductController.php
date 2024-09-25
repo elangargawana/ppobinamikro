@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CoreProduct;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ProductController extends Controller
 {
@@ -11,15 +13,8 @@ class ProductController extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+        $data = CoreProduct::all();
+        return view('pages.Product.index', compact('data'));
     }
 
     /**
@@ -27,23 +22,41 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
+        $validator = Validator::make($request->all(), [
+            'product_category_id' => 'required|string',
+            'product_code' => 'required|string',
+            'product_name' => 'required|string'
+        ]);
+        if ($validator->fails()) {
+            $errors = $validator->errors()->all();
+            foreach ($errors as $error) {
+                notyf()->error($error);
+            }
+            return back();
+        }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
+        try {
+            DB::beginTransaction();
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
+            //CoreProductCategory::create($validator);
+
+            $product = new CoreProduct();
+
+            $product->product_category_id = $request->product_category_id;
+            $product->product_code = $request->product_code;
+            $product->product_name = $request->product_name;
+            $product->created_id = Auth::id();
+            $product->edited_id = Auth::id();
+            $product->deleted_id = Auth::id();
+            $product->save();
+
+            DB::commit();
+            notyf()->success('Success Add Product');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            notyf()->error($e->getMessage());
+        }
+        return back();
     }
 
     /**
@@ -51,7 +64,34 @@ class ProductController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'product_category_id' => 'string',
+            'product_code' => 'string',
+            'product_name' => 'string'
+        ]);
+        if ($validator->fails()) {
+            $errors = $validator->errors()->all();
+            foreach ($errors as $error) {
+                notyf()->error($error);
+            }
+            return back();
+        }
+
+        try {
+            DB::beginTransaction();
+
+            //CoreProductCategory::create($validator);
+
+            $product = CoreProduct::findOrFail($id);
+            $product->update($validator);
+
+            DB::commit();
+            notyf()->success('Success Update Product');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            notyf()->error($e->getMessage());
+        }
+        return back();
     }
 
     /**
@@ -59,6 +99,8 @@ class ProductController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $product = CoreProduct::findOrFail($id);
+        $product->delete();
+        return back();
     }
 }
