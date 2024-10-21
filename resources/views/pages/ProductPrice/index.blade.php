@@ -18,14 +18,16 @@
                         <thead>
                             <tr>
                                 <th class="text-center">#</th>
-                                <th class="text-center">Product Code</th>
                                 <th class="text-center">Product Name</th>
+                                <th class="text-center">Product Price</th>
+                                <th class="text-center">Item Unit Price</th>
                                 <th class="text-center">Action</th>
                             </tr>
                         </thead>
 
                         <tbody>
                             <tr>
+                                <td class="text-center"></td>
                                 <td class="text-center"></td>
                                 <td class="text-center"></td>
                                 <td class="text-center"></td>

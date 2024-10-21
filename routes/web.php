@@ -14,7 +14,7 @@ use App\Http\Controllers\ScanQRController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return ['Laravel' => app()->version()];
+    return redirect('/login');;
 });
 
 Route::middleware('auth')->group(function () {
