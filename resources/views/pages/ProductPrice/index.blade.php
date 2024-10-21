@@ -1,7 +1,7 @@
 @extends('layouts.layout')
 
 @section('title')
-    Product
+    Product Price
 @endsection
 
 @section('content')
@@ -32,8 +32,8 @@
                                 <td class="text-center"></td>
                                 <td class="text-center"></td>
                                 <td class="text-center">
-                                    <button type="button" class="btn btn-warning">
-                                        <i class="bi bi-pencil-square"></i>
+                                    <button type="button" class="btn btn-danger">
+                                        <i class="bi bi-trash"></i>
                                     </button>
                                 </td>
                             </tr>
@@ -44,6 +44,9 @@
         </div>
     </div>
 @endsection
+
+@include('pages.ProductPrice.modaladd')
+@include('pages.ProductPrice.modaldelete')
 
 @push('js')
     <script>

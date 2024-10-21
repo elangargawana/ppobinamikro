@@ -9,7 +9,7 @@ class SalesMerchant extends Model
 {
     use HasFactory;
     protected $table = 'sales_merchant';
-    protected $primaryKey = 'merchant_id';
+    protected $primaryKey = 'id';
     protected $fillable = [
         'merchant_code',
         'merchant_name',

@@ -30,8 +30,8 @@
                                 <td class="text-center">123456</td>
                                 <td class="text-center">Tsel</td>
                                 <td class="text-center">
-                                    <button type="button" class="btn btn-warning">
-                                        <i class="bi bi-pencil-square"></i>
+                                    <button type="button" class="btn btn-danger">
+                                        <i class="bi bi-trash"></i>
                                     </button>
                                 </td>
                             </tr>
@@ -42,6 +42,9 @@
         </div>
     </div>
 @endsection
+
+@include('pages.Prefix.modaladd')
+@include('pages.Prefix.modaldelete')
 
 @push('js')
     <script>

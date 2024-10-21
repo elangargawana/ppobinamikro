@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('product_category_id');
             $table->string('product_id');
             $table->string('item_unit_price');
-            $table->string('product_price_code');
+            $table->string('product_price_code')->unique();
             $table->string('product_price_name');
             $table->unsignedBigInteger('created_id');
             $table->unsignedBigInteger('edited_id');

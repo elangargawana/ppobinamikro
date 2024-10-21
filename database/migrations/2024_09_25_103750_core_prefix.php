@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('product_category_id');
             $table->string('product_id');
-            $table->string('prefix_code');
+            $table->string('prefix_code')->unique();
             $table->string('prefix_name');
             $table->unsignedBigInteger('created_id');
             $table->unsignedBigInteger('edited_id');

@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('core_product', function (Blueprint $table) {
             $table->id();
             $table->string('product_category_id');
-            $table->string('product_code');
+            $table->string('product_code')->unique();
             $table->string('product_name');
             $table->unsignedBigInteger('created_id');
             $table->unsignedBigInteger('edited_id');

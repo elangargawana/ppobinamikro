@@ -9,7 +9,7 @@ class SalesInvoice extends Model
 {
     use HasFactory;
     protected $table = 'sales_invoice';
-    protected $primaryKey = 'sales_invoice_id';
+    protected $primaryKey = 'id';
     protected $fillable = [
         'merchant_id',
         'product_category_id',

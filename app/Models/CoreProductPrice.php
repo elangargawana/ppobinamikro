@@ -9,7 +9,7 @@ class CoreProductPrice extends Model
 {
     use HasFactory;
     protected $table = 'core_product_price';
-    protected $primaryKey = 'core_product_id';
+    protected $primaryKey = 'id';
     protected $fillable = [
         'product_category_id',
         'product_id',

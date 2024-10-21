@@ -9,7 +9,7 @@ class CorePrefix extends Model
 {
     use HasFactory;
     protected $table = 'core_prefix';
-    protected $primaryKey = 'prefix_id';
+    protected $primaryKey = 'id';
     protected $fillable = [
         'product_category_id',
         'product_id',
