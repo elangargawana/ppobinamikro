@@ -8,7 +8,7 @@
     <div class="row">
         <div class="col-12">
             <div class="mb-4">
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#add   Modal">
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addModal">
                     <i class="bi bi-plus-circle me-2"></i> Add Category
                 </button>
             </div>
@@ -18,7 +18,6 @@
                         <thead>
                             <tr>
                                 <th class="text-center">#</th>
-                                <th class="text-center">Product ID</th>
                                 <th class="text-center">Category Code</th>
                                 <th class="text-center">Category Name</th>
                                 <th class="text-center">Action</th>
@@ -29,7 +28,6 @@
                             @foreach ($data as $key => $value)
                                 <tr>
                                     <td class="text-center">{{ $key + 1 }}</td>
-                                    <td class="text-center">{{ $value->product_id }}</td>
                                     <td class="text-center">{{ $value->product_category_code }}</td>
                                     <td class="text-center">{{ $value->product_category_name }}</td>
                                     <td class="text-center">

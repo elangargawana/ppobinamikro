@@ -9,10 +9,6 @@
                 <form id="addCategoryForm" action="{{ route('category.store') }}" method="POST">
                     @csrf
                     <div class="mb-3">
-                        <label for="product_id" class="form-label">Product ID</label>
-                        <input type="text" class="form-control" id="product_id" name="product_id" required>
-                    </div>
-                    <div class="mb-3">
                         <label for="product_category_code" class="form-label">Category Code</label>
                         <input type="text" class="form-control" id="product_category_code"
                             name="product_category_code" required>

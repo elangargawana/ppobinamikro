@@ -11,7 +11,6 @@ class CoreProductCategory extends Model
     protected $table = 'core_product_category';
     protected $primaryKey = 'id';
     protected $fillable = [
-        'product_id',
         'product_category_code',
         'product_category_name',
         'created_id',
