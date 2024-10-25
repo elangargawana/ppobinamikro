@@ -12,7 +12,26 @@ class ProductPriceController extends Controller
      */
     public function index()
     {
-        //
+        $productPrices = ProductPriceController::with('category', 'product')->get();
+
+        return response()->json($productPrices, 200);
+    }
+
+    public function searchByPrefix(Request $request)
+    {
+        $prefix = $request->query('prefix');
+
+        if (!$prefix) {
+            return response()->json(['message' => 'Prefix tidak ditemukan'], 400);
+        }
+
+        $productPrice = ProductPrice::where('prefix', 'like', $prefix . '%')->first();
+
+        if (!$productPrice) {
+            return response()->json(['message' => 'Produk tidak ditemukan'], 404);
+        }
+
+        return response()->json($productPrice, 200);
     }
 
     /**
@@ -36,7 +55,13 @@ class ProductPriceController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $productPrice = ProductPriceController::with('category', 'product')->find($id);
+
+        if (!$productPrice) {
+            return response()->json(['message' => 'Data harga produk tidak ditemukan'], 404);
+        }
+
+        return response()->json($productPrice, 200);
     }
 
     /**

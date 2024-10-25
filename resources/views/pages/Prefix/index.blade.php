@@ -35,9 +35,10 @@
                                     <td class="text-center">{{ $value->prefix_code }}</td>
                                     <td class="text-center">{{ $value->prefix_code }}</td>
                                     <td class="text-center">
-                                        <button type="button" class="btn btn-danger">
-                                            <i class="bi bi-trash"></i>
-                                        </button>
+                                        <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                                            data-bs-target="#deleteModal"
+                                            onclick="setDeleteAction('{{ route('prefix.destroy', $value->id) }}')"><i
+                                                class="bi bi-trash"></i></button>
                                     </td>
                                 </tr>
                             @endforeach

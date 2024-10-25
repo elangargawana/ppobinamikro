@@ -25,6 +25,7 @@ Route::middleware('auth')->group(function () {
     Route::get('products-by-category/{categoryId}', [PrefixController::class, 'getProductsByCategory']);
     Route::resource('product', ProductController::class);
     Route::resource('productprice', ProductPriceController::class);
+    Route::get('products-by-category/{categoryId}', [ProductPriceController::class, 'getProductsByCategory']);
     Route::post('update-profile', [DashboardController::class, 'update_profile'])->name('profile.update');
     Route::post('delete-profile', [DashboardController::class, 'delete_profile'])->name('profile.delete');
     Route::delete('logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');

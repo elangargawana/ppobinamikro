@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\CoreProduct;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -12,7 +13,11 @@ class ProductController extends Controller
      */
     public function index()
     {
-        //
+        $data = CoreProduct::all();
+        return response()->json([
+            'status' => 200,
+            'data' => $data
+        ]);
     }
 
     /**
@@ -36,7 +41,18 @@ class ProductController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $data = CoreProduct::find($id);
+        if (!$data) {
+            return response()->json([
+                'status' => 404,
+                'message' => 'Data tidak ditemukan',
+                'data' => null
+            ]);
+        }
+        return response()->json([
+            'status' => 200,
+            'data' => $data
+        ]);
     }
 
     /**

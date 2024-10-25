@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CoreProduct;
+use App\Models\CoreProductCategory;
 use App\Models\CoreProductPrice;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -16,7 +18,9 @@ class ProductPriceController extends Controller
     public function index()
     {
         $data = CoreProductPrice::all();
-        return view('pages.ProductPrice.index', compact('data'));
+        $categories = CoreProductCategory::all();
+        $products = CoreProduct::all();
+        return view('pages.ProductPrice.index', compact('data', 'categories', 'products'));
     }
 
     /**
@@ -25,10 +29,10 @@ class ProductPriceController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'product_category_id' => 'required|string',
-            'product_id' => 'required|string',
+            'product_category_id' => 'required|string|exists:core_product_category,id',
+            'product_id' => 'required|string|exists:core_product,id',
             'item_unit_price' => 'required|string',
-            'product_price_code' => 'required|string',
+            'product_price_code' => 'required|string|unique:core_product_price,product_price_code',
             'product_price_name' => 'required|string'
         ]);
         if ($validator->fails()) {
@@ -63,6 +67,12 @@ class ProductPriceController extends Controller
             notyf()->error($e->getMessage());
         }
         return back();
+    }
+
+    public function getProductsByCategory($categoryId)
+    {
+        $data = CoreProduct::where('product_category_id', $categoryId)->get();
+        return response()->json($data);
     }
 
     /**

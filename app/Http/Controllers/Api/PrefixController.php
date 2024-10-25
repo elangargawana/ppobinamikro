@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\CorePrefix;
 use Illuminate\Http\Request;
 
 class PrefixController extends Controller
@@ -12,7 +13,25 @@ class PrefixController extends Controller
      */
     public function index()
     {
-        //
+        $prefixes = CorePrefix::with('category', 'product')->get();
+
+        return response()->json($prefixes, 200);
+    }
+
+    public function getProductPriceByPrefix($prefix)
+    {
+        $prefixData = CorePrefix::where('prefix_code', 'like', "$prefix%")
+            ->with('product')
+            ->first();
+
+        if ($prefixData && $prefixData->product) {
+            return response()->json([
+                'success' => true,
+                'product_price' => $prefixData->product->price,
+            ]);
+        } else {
+            return response()->json(['success' => false, 'message' => 'Produk tidak ditemukan untuk prefix ini'], 404);
+        }
     }
 
     /**
@@ -36,7 +55,13 @@ class PrefixController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $prefix = CorePrefix::with('category', 'product')->find($id);
+
+        if (!$prefix) {
+            return response()->json(['message' => 'Data prefix tidak ditemukan'], 404);
+        }
+
+        return response()->json($prefix, 200);
     }
 
     /**

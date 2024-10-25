@@ -67,7 +67,7 @@ class PrefixController extends Controller
         return back();
     }
 
-    public function getProductsBycategory($categoryId)
+    public function getProductsByCategory($categoryId)
     {
         $data = CoreProduct::where('product_category_id', $categoryId)->get();
         return response()->json($data);

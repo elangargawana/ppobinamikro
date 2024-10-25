@@ -45,7 +45,7 @@ class CategoryController extends Controller
         if (!$data) {
             return response()->json([
                 'status' => 404,
-                'message' => 'data not found',
+                'message' => 'Data tidak ditemukan',
                 'data' => null
             ]);
         }
