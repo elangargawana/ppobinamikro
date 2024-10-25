@@ -11,17 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('core_prefix', function (Blueprint $table) {
+        Schema::create('core_product', function (Blueprint $table) {
             $table->id();
-            $table->string('product_category_id');
-            $table->string('product_id');
-            $table->string('prefix_code')->unique();
-            $table->string('prefix_name');
+            $table->unsignedBigInteger('product_category_id');
+            $table->string('product_code')->unique();
+            $table->string('product_name');
             $table->unsignedBigInteger('created_id');
             $table->unsignedBigInteger('edited_id');
             $table->unsignedBigInteger('deleted_id');
             $table->timestamps();
 
+            $table->foreign('product_category_id')->references('id')->on('core_product_category')->cascadeOnDelete();
             $table->foreign('created_id')->references('id')->on('users')->cascadeOnDelete();
             $table->foreign('edited_id')->references('id')->on('users')->cascadeOnDelete();
             $table->foreign('deleted_id')->references('id')->on('users')->cascadeOnDelete();

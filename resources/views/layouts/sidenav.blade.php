@@ -34,14 +34,17 @@
                         <i class="nav-icon bi bi-bag-fill"></i>
                         <p>Product</p>
                     </a> </li>
-                <li class="nav-item"> <a href="{{ route('productprice.index') }}" class="nav-link"> <i
-                            class="nav-icon bi bi-wallet-fill"></i>
-                        <p>Product Price</p>
-                    </a> </li>
+
 
                 <li class="nav-item"> <a href="{{ route('prefix.index') }}" class="nav-link">
                         <i class="nav-icon bi bi-sticky-fill"></i>
                         <p>Prefix</p>
+                    </a> </li>
+
+
+                <li class="nav-item"> <a href="{{ route('productprice.index') }}" class="nav-link"> <i
+                            class="nav-icon bi bi-wallet-fill"></i>
+                        <p>Product Price</p>
                     </a> </li>
 
                 <hr class="my-3 text-white" />

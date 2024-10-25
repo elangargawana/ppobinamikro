@@ -19,4 +19,14 @@ class CorePrefix extends Model
         'edited_id',
         'deleted_id'
     ];
+
+    public function category()
+    {
+        return $this->belongsTo(CoreProductCategory::class, 'product_category_id');
+    }
+
+    public function product()
+    {
+        return $this->belongsTo(CoreProduct::class, 'product_id');
+    }
 }

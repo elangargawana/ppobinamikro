@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\CoreProduct;
+use App\Models\CoreProductCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 
 class ProductController extends Controller
 {
@@ -14,7 +17,8 @@ class ProductController extends Controller
     public function index()
     {
         $data = CoreProduct::all();
-        return view('pages.Product.index', compact('data'));
+        $categories = CoreProductCategory::all();
+        return view('pages.Product.index', compact('data', 'categories'));
     }
 
     /**
@@ -23,8 +27,8 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'product_category_id' => 'required|string',
-            'product_code' => 'required|string',
+            'product_category_id' => 'required|exists:core_product_category,id',
+            'product_code' => 'required|string|unique:core_product,product_code',
             'product_name' => 'required|string'
         ]);
         if ($validator->fails()) {
@@ -65,8 +69,8 @@ class ProductController extends Controller
     public function update(Request $request, string $id)
     {
         $validator = Validator::make($request->all(), [
-            'product_category_id' => 'string',
-            'product_code' => 'string',
+            'product_category_id' => 'string|exists:core_product_category,id',
+            'product_code' => 'string|unique:core_product,product_code,' . $id,
             'product_name' => 'string'
         ]);
         if ($validator->fails()) {

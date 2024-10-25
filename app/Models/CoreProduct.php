@@ -18,4 +18,9 @@ class CoreProduct extends Model
         'edited_id',
         'deleted_id'
     ];
+
+    public function category()
+    {
+        return $this->belongsTo(CoreProductCategory::class, 'product_category_id');
+    }
 }

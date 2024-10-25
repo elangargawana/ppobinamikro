@@ -22,6 +22,7 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('category', CategoryController::class);
     Route::resource('prefix', PrefixController::class);
+    Route::get('products-by-category/{categoryId}', [PrefixController::class, 'getProductsByCategory']);
     Route::resource('product', ProductController::class);
     Route::resource('productprice', ProductPriceController::class);
     Route::post('update-profile', [DashboardController::class, 'update_profile'])->name('profile.update');

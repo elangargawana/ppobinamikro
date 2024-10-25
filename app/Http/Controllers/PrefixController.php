@@ -3,8 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\CorePrefix;
+use App\Models\CoreProduct;
+use App\Models\CoreProductCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 
 class PrefixController extends Controller
 {
@@ -14,7 +18,9 @@ class PrefixController extends Controller
     public function index()
     {
         $data = CorePrefix::all();
-        return view('pages.Prefix.index', compact('data'));
+        $categories = CoreProductCategory::all();
+        $products = CoreProduct::all();
+        return view('pages.Prefix.index', compact('data', 'categories', 'products'));
     }
 
     /**
@@ -23,9 +29,9 @@ class PrefixController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'product_category_id' => 'required|string',
-            'product_id' => 'required|string',
-            'prefix_code' => 'required|string',
+            'product_category_id' => 'required|string|exists:core_product_category,id',
+            'product_id' => 'required|string|exists:core_product,id',
+            'prefix_code' => 'required|string|unique:core_prefix,prefix_code',
             'prefix_name' => 'required|string'
         ]);
         if ($validator->fails()) {
@@ -61,15 +67,21 @@ class PrefixController extends Controller
         return back();
     }
 
+    public function getProductsBycategory($categoryId)
+    {
+        $data = CoreProduct::where('product_category_id', $categoryId)->get();
+        return response()->json($data);
+    }
+
     /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, string $id)
     {
         $validator = Validator::make($request->all(), [
-            'product_category_id' => 'string',
-            'product_id' => 'string',
-            'prefix_code' => 'string',
+            'product_category_id' => 'string|exists:core_product_category,id',
+            'product_id' => 'string|exists:core_product,id',
+            'prefix_code' => 'string|unique:core_product,product_code,' . $id,
             'prefix_name' => 'string'
         ]);
         if ($validator->fails()) {
